@@ -1,6 +1,6 @@
 # Homework
 
-Here is sample code that is not working and by far not ideal.
+Here is sample code that is not by far ideal.
 
 1. Adjust code so it is working and follows best practices.
 2. Add styling by your choice. (You can add styling library)
