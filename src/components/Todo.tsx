@@ -1,11 +1,14 @@
 import React from 'react'
+import { createDetailPageUrl } from '../features/routing/utils'
 import { TodoItemData } from '../types'
 
 type Props = TodoItemData
 
-class Todo extends React.PureComponent<Props> {
-  handleOnClick() {
-    window.location.href = '/detail'
+export class Todo extends React.PureComponent<Props> {
+  handleOnClick = () => {
+    const path = createDetailPageUrl(this.props.id)
+    console.log(path)
+    window.location.href = path
   }
 
   render() {
@@ -16,5 +19,3 @@ class Todo extends React.PureComponent<Props> {
     )
   }
 }
-
-export default Todo

@@ -1,17 +1,35 @@
 import React from 'react'
-import Todo from './components/Todo'
-import { useTodoItems } from './hooks/useTodoItems'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import * as routes from './features/routing/constants'
 
-function App() {
-  const { items } = useTodoItems()
+const TodoListPage = React.lazy(() => import('./pages/TodoList'))
+const TodoItemPage = React.lazy(() => import('./pages/TodoItem'))
+const NotFoundPage = React.lazy(() => import('./pages/NotFound'))
 
-  return (
-    <div>
-      {items.map(todo => (
-        <Todo key={todo.id} id={todo.id} title={todo.title} />
-      ))}
-    </div>
-  )
-}
+const App = () => (
+  <BrowserRouter>
+    <Routes>
+      <Route path={routes.HOME_PAGE}>
+        <Route
+          index
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <TodoListPage />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path={routes.DETAIL_PAGE}
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <TodoItemPage />
+            </React.Suspense>
+          }
+        />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+    </Routes>
+  </BrowserRouter>
+)
 
 export default App
