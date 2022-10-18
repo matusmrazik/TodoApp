@@ -8,7 +8,7 @@ const TodoList = () => {
   return (
     <div>
       {items.map(todo => (
-        <Todo key={todo.id} id={todo.id} title={todo.title} />
+        <Todo key={todo.id} id={todo.id} title={todo.title} status={todo.status} />
       ))}
     </div>
   )

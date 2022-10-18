@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { todos } from '../api/todos'
+import { mapTodosResponse } from '../api/mappers'
+import { getTodos } from '../api/todos'
 import { TodoItemData } from '../types'
 
 export const useTodoItems = () => {
@@ -9,10 +10,10 @@ export const useTodoItems = () => {
   useEffect(() => {
     let mounted = true
     setLoading(true)
-    todos().then(
+    getTodos().then(
       data => {
         if (!mounted) return
-        setItems(data)
+        setItems(mapTodosResponse(data.data))
         setLoading(false)
       },
       err => {
