@@ -1,4 +1,3 @@
-import React from 'react'
 import { HOME_PAGE } from '../features/routing/constants'
 
 const NotFound = () => (
