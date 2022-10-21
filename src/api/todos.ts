@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { DeleteTodoItemResponse, GetTodosRequest, GetTodosResponse, TodoItemFields, GetTodoItemResponse } from './types'
+import { DeleteTodoItemResponse, GetTodoItemResponse, GetTodosRequest, GetTodosResponse, TodoItemFields } from './types'
 
 // rework this into regular api call, feel free to use any open api
 export const todos = (): Promise<GetTodosResponse> =>
