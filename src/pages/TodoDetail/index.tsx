@@ -1,6 +1,6 @@
 import { CloseCircleOutlined } from '@ant-design/icons'
 import { Breadcrumb, Spin } from 'antd'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { Text } from '../../components/Text'
 import { Page, PageHeader } from '../../containers/Page'
 import { HOME_PAGE } from '../../features/routing/constants'
@@ -28,7 +28,7 @@ const TodoItem: React.FC = () => {
           Item with this ID does not exist.
         </Text>
         <Text size="20px">
-          Return to <a href={HOME_PAGE}>home page</a>.
+          Return to <Link to={HOME_PAGE}>home page</Link>.
         </Text>
       </Page>
     )
@@ -40,7 +40,7 @@ const TodoItem: React.FC = () => {
         breadcrumb={
           <Breadcrumb>
             <Breadcrumb.Item>
-              <a href={HOME_PAGE}>Home</a>
+              <Link to={HOME_PAGE}>Home</Link>
             </Breadcrumb.Item>
             <Breadcrumb.Item>Task detail</Breadcrumb.Item>
           </Breadcrumb>

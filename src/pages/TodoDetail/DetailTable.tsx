@@ -43,7 +43,7 @@ export const DetailTable: React.FC<Props> = ({ data }) => {
 
   return (
     <TableWrapper>
-      <Table dataSource={rows} columns={columns} pagination={false} />
+      <Table dataSource={rows} columns={columns} pagination={false} showHeader={false} />
     </TableWrapper>
   )
 }
