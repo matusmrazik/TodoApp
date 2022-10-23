@@ -1,31 +1,36 @@
-import { useEffect, useState } from 'react'
-import { mapTodosResponse } from '../api/mappers'
+import { useCallback, useEffect, useState } from 'react'
+import { mapTodoItem, mapTodosResponse } from '../api/mappers'
 import { getTodos } from '../api/todos'
-import { TodoItemData } from '../types'
+import { GetTodoItemResponse } from '../api/types'
+import { LoadingStatus, TodoItemData } from '../types'
 
 export const useTodoList = () => {
-  const [items, setItems] = useState<TodoItemData[]>([])
-  const [loading, setLoading] = useState(false)
+  const [items, setItems] = useState<TodoItemData[]>()
+  const [status, setStatus] = useState<LoadingStatus>('NotLoaded')
 
   useEffect(() => {
-    let mounted = true
-    setLoading(true)
+    if (status !== 'NotLoaded') return
+
+    setStatus('Loading')
     getTodos().then(
-      data => {
-        if (!mounted) return
-        setItems(mapTodosResponse(data.data))
-        setLoading(false)
+      response => {
+        setItems(mapTodosResponse(response.data))
+        setStatus('Success')
       },
-      err => {
-        if (!mounted) return
-        console.log(err)
-        setLoading(false)
+      error => {
+        console.log(error)
+        setStatus('Error')
       }
     )
-    return () => {
-      mounted = false
-    }
+  }, [status])
+
+  const requestReload = useCallback(() => {
+    setStatus('NotLoaded')
   }, [])
 
-  return { loading, items }
+  const onAddItem = useCallback((response: GetTodoItemResponse) => {
+    setItems(prev => (prev === undefined ? [mapTodoItem(response)] : [mapTodoItem(response), ...prev]))
+  }, [])
+
+  return { status, items, requestReload, onAddItem }
 }

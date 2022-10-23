@@ -1,18 +1,19 @@
+import React from 'react'
 import { Page, PageHeader } from '../../containers/Page'
-import { useTodoList } from '../../hooks/useTodoList'
+import { TodosContext } from '../../TodosContext'
 import { AddTaskRow } from './AddTaskRow'
 import { TableWrapper } from './styled'
 import { TodoTable } from './TodoTable'
 
 const TodoList: React.FC = () => {
-  const { loading, items } = useTodoList()
+  const { items, status, onAddItem } = React.useContext(TodosContext)
 
   return (
     <Page>
       <PageHeader title="TodoApp" subTitle="A simple app to manage your tasks" />
       <TableWrapper>
-        <AddTaskRow />
-        <TodoTable items={items} loading={loading} />
+        <AddTaskRow onAdd={onAddItem} />
+        <TodoTable items={items} loading={status === 'Loading' || status === 'NotLoaded'} />
       </TableWrapper>
     </Page>
   )

@@ -3,7 +3,7 @@ import { ColumnsType } from 'antd/lib/table'
 import React from 'react'
 import styled from 'styled-components/macro'
 import { Text } from '../../components/Text'
-import { TodoItemDetailData } from '../../types'
+import { TodoItemData } from '../../types'
 
 const TableWrapper = styled.div`
   background-color: #fff;
@@ -20,7 +20,7 @@ type TableDataItem = {
 const columns: ColumnsType<TableDataItem> = [{ dataIndex: 'description' }, { dataIndex: 'value' }]
 
 type Props = {
-  data: TodoItemDetailData
+  data: TodoItemData
 }
 
 export const DetailTable: React.FC<Props> = ({ data }) => {

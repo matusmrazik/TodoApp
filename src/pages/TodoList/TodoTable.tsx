@@ -15,11 +15,11 @@ const columns: ColumnsType<TodoItemData> = [
 
 type Props = {
   loading?: boolean
-  items: TodoItemData[]
+  items: TodoItemData[] | undefined
 }
 
 export const TodoTable: React.FC<Props> = ({ loading, items }) => {
-  if (!loading && items.length === 0) {
+  if (!loading && (items === undefined || items.length === 0)) {
     return (
       <EmptyTableBanner>
         <EmptyIcon style={{ fontSize: 50, marginBottom: 10 }} />
