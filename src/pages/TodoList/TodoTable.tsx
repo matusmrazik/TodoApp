@@ -6,19 +6,19 @@ import { Todo } from '../../components/Todo'
 import { TodoItemData } from '../../types'
 import { EmptyTableBanner } from './styled'
 
+const columns: ColumnsType<TodoItemData> = [
+  {
+    dataIndex: 'item',
+    render: (__, rec) => <Todo id={rec.id} title={rec.title} status={rec.status} />
+  }
+]
+
 type Props = {
   loading?: boolean
   items: TodoItemData[]
 }
 
 export const TodoTable: React.FC<Props> = ({ loading, items }) => {
-  const columns: ColumnsType<TodoItemData> = [
-    {
-      dataIndex: 'item',
-      render: (__, rec) => <Todo id={rec.id} title={rec.title} status={rec.status} />
-    }
-  ]
-
   if (!loading && items.length === 0) {
     return (
       <EmptyTableBanner>

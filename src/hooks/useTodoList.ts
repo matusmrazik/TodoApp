@@ -3,7 +3,7 @@ import { mapTodosResponse } from '../api/mappers'
 import { getTodos } from '../api/todos'
 import { TodoItemData } from '../types'
 
-export const useTodoItems = () => {
+export const useTodoList = () => {
   const [items, setItems] = useState<TodoItemData[]>([])
   const [loading, setLoading] = useState(false)
 

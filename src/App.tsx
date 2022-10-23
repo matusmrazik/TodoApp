@@ -5,7 +5,7 @@ import { createGlobalStyle } from 'styled-components/macro'
 import * as routes from './features/routing/constants'
 
 const TodoListPage = React.lazy(() => import('./pages/TodoList'))
-const TodoItemPage = React.lazy(() => import('./pages/TodoItem'))
+const TodoItemPage = React.lazy(() => import('./pages/TodoDetail'))
 const NotFoundPage = React.lazy(() => import('./pages/NotFound'))
 
 const GlobalStyle = createGlobalStyle`

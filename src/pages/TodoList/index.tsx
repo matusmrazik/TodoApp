@@ -1,11 +1,11 @@
 import { Page, PageHeader } from '../../containers/Page'
-import { useTodoItems } from '../../hooks/useTodoItems'
+import { useTodoList } from '../../hooks/useTodoList'
 import { AddTaskRow } from './AddTaskRow'
 import { TableWrapper } from './styled'
 import { TodoTable } from './TodoTable'
 
 const TodoList: React.FC = () => {
-  const { loading, items } = useTodoItems()
+  const { loading, items } = useTodoList()
 
   return (
     <Page>

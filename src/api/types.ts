@@ -5,14 +5,18 @@ export type GetTodosRequest = {
   pageSize?: number
 }
 
-export type TodoItemFields = {
+export type TodoItemEditableFields = {
   Title: string
   Status: TodoItemStatus
 }
 
+export type TodoItemFields = TodoItemEditableFields & {
+  DoneAt?: string
+}
+
 export type GetTodoItemResponse = {
   id: string
-  createdTime?: Date
+  createdTime?: string
   fields: TodoItemFields
 }
 

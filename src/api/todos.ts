@@ -1,5 +1,11 @@
 import axios from 'axios'
-import { DeleteTodoItemResponse, GetTodoItemResponse, GetTodosRequest, GetTodosResponse, TodoItemFields } from './types'
+import {
+  DeleteTodoItemResponse,
+  GetTodoItemResponse,
+  GetTodosRequest,
+  GetTodosResponse,
+  TodoItemEditableFields
+} from './types'
 
 // rework this into regular api call, feel free to use any open api
 export const todos = (): Promise<GetTodosResponse> =>
@@ -41,7 +47,7 @@ export const addTodoItem = (title: string) =>
     { headers: { Authorization: `Bearer ${API_KEY}`, 'Content-Type': 'application/json' } }
   )
 
-export const updateTodoItem = (id: string, fields: TodoItemFields) =>
+export const updateTodoItem = (id: string, fields: Partial<TodoItemEditableFields>) =>
   axios.patch<GetTodoItemResponse>(
     `${BASE_TODOS_URL}/${id}`,
     { fields },
