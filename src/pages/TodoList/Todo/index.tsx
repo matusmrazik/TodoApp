@@ -1,18 +1,19 @@
-import { CheckOutlined as DoneIcon } from '@ant-design/icons'
 import { Tooltip } from 'antd'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { DeleteTodoItemResponse } from '../../../api/types'
+import { DeleteTodoItemResponse, GetTodoItemResponse } from '../../../api/types'
 import { createDetailPageUrl } from '../../../features/routing/utils'
 import { TodoItemData } from '../../../types'
 import { DeleteControls } from './DeleteControls'
-import { StatusButton, TodoText, TodoWrapper } from './styled'
+import { StatusControls } from './StatusControls'
+import { TodoText, TodoWrapper } from './styled'
 
 type Props = TodoItemData & {
   onDelete?: (response: DeleteTodoItemResponse) => void
+  onStatusUpdate?: (response: GetTodoItemResponse) => void
 }
 
-const TodoFC: React.FC<Props> = ({ id, title, status, onDelete }) => {
+const TodoFC: React.FC<Props> = ({ id, title, status, onDelete, onStatusUpdate }) => {
   const navigate = useNavigate()
 
   const handleOnClick = React.useCallback(() => {
@@ -23,10 +24,10 @@ const TodoFC: React.FC<Props> = ({ id, title, status, onDelete }) => {
   return (
     <TodoWrapper>
       {status === 'Done' ? (
-        <StatusButton status={status} icon={<DoneIcon />} disabled />
+        <StatusControls taskId={id} taskStatus={status} disabled />
       ) : (
         <Tooltip title="Mark as done" placement="bottomLeft">
-          <StatusButton status={status} icon={<DoneIcon />} />
+          <StatusControls taskId={id} taskStatus={status} onStatusUpdate={onStatusUpdate} />
         </Tooltip>
       )}
       <TodoText crossed={status === 'Done'} onClick={handleOnClick}>

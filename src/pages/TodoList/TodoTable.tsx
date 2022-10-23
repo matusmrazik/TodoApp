@@ -14,12 +14,14 @@ type Props = {
 }
 
 export const TodoTable: React.FC<Props> = ({ loading, items }) => {
-  const { onRemoveItem } = React.useContext(TodosContext)
+  const { onRemoveItem, onUpdateItem } = React.useContext(TodosContext)
 
   const columns: ColumnsType<TodoItemData> = [
     {
       dataIndex: 'item',
-      render: (__, rec) => <Todo id={rec.id} title={rec.title} status={rec.status} onDelete={onRemoveItem} />
+      render: (__, rec) => (
+        <Todo id={rec.id} title={rec.title} status={rec.status} onDelete={onRemoveItem} onStatusUpdate={onUpdateItem} />
+      )
     }
   ]
 

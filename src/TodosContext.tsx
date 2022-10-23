@@ -11,6 +11,7 @@ type TodosContextData = {
   requestReload: () => void
   onAddItem: (response: GetTodoItemResponse) => void
   onRemoveItem: (response: DeleteTodoItemResponse) => void
+  onUpdateItem: (response: GetTodoItemResponse) => void
 }
 
 export const TodosContext = React.createContext<TodosContextData>({
@@ -19,7 +20,8 @@ export const TodosContext = React.createContext<TodosContextData>({
   getItem: () => undefined,
   requestReload: _.noop,
   onAddItem: _.noop,
-  onRemoveItem: _.noop
+  onRemoveItem: _.noop,
+  onUpdateItem: _.noop
 })
 
 type TodosProviderProps = {
@@ -27,12 +29,12 @@ type TodosProviderProps = {
 }
 
 export const TodosProvider: React.FC<TodosProviderProps> = ({ children }) => {
-  const { items, status, requestReload, onAddItem, onRemoveItem } = useTodoList()
+  const { items, status, requestReload, onAddItem, onRemoveItem, onUpdateItem } = useTodoList()
 
   const getItem = React.useCallback((id: string) => _.find(items, x => x.id == id), [items])
 
   return (
-    <TodosContext.Provider value={{ items, status, getItem, requestReload, onAddItem, onRemoveItem }}>
+    <TodosContext.Provider value={{ items, status, getItem, requestReload, onAddItem, onRemoveItem, onUpdateItem }}>
       {children}
     </TodosContext.Provider>
   )

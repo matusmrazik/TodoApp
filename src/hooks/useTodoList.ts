@@ -37,5 +37,11 @@ export const useTodoList = () => {
     setItems(prev => (prev === undefined ? prev : _.reject(prev, ['id', response.id])))
   }, [])
 
-  return { status, items, requestReload, onAddItem, onRemoveItem }
+  const onUpdateItem = useCallback((response: GetTodoItemResponse) => {
+    setItems(prev =>
+      prev === undefined ? prev : _.map(prev, x => (x.id !== response.id ? x : { ...x, ...mapTodoItem(response) }))
+    )
+  }, [])
+
+  return { status, items, requestReload, onAddItem, onRemoveItem, onUpdateItem }
 }
