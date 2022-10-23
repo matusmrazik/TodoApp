@@ -3,13 +3,12 @@ import { Input, message } from 'antd'
 import React from 'react'
 import { GetTodoItemResponse } from '../../api/types'
 import { useAddTask } from '../../hooks/useAddTask'
+import { useTodosContext } from '../../hooks/useTodosContext'
 import { AddButton, AddTaskRowWrapper } from './styled'
 
-type Props = {
-  onAdd?: (response: GetTodoItemResponse) => void
-}
+export const AddTaskRow: React.FC = () => {
+  const { onAddItem } = useTodosContext()
 
-export const AddTaskRow: React.FC<Props> = ({ onAdd }) => {
   const [value, setValue] = React.useState('')
   const [isValid, setIsValid] = React.useState(false)
 
@@ -18,11 +17,9 @@ export const AddTaskRow: React.FC<Props> = ({ onAdd }) => {
       setValue('')
       setIsValid(false)
       message.info('Task created')
-      if (onAdd) {
-        onAdd(response)
-      }
+      onAddItem(response)
     },
-    [onAdd]
+    [onAddItem]
   )
 
   const onFailure = React.useCallback(() => {

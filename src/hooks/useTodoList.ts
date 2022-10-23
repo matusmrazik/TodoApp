@@ -25,10 +25,6 @@ export const useTodoList = () => {
     )
   }, [status])
 
-  const requestReload = useCallback(() => {
-    setStatus('NotLoaded')
-  }, [])
-
   const onAddItem = useCallback((response: GetTodoItemResponse) => {
     setItems(prev => (prev === undefined ? [mapTodoItem(response)] : [mapTodoItem(response), ...prev]))
   }, [])
@@ -43,5 +39,5 @@ export const useTodoList = () => {
     )
   }, [])
 
-  return { status, items, requestReload, onAddItem, onRemoveItem, onUpdateItem }
+  return { status, items, onAddItem, onRemoveItem, onUpdateItem }
 }

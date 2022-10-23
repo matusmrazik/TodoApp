@@ -3,10 +3,16 @@ import { Table } from 'antd'
 import { ColumnsType } from 'antd/lib/table'
 import React from 'react'
 import { Text } from '../../components/Text'
-import { TodosContext } from '../../TodosContext'
 import { TodoItemData } from '../../types'
 import { EmptyTableBanner } from './styled'
 import { Todo } from './Todo'
+
+const columns: ColumnsType<TodoItemData> = [
+  {
+    dataIndex: 'item',
+    render: (__, rec) => <Todo id={rec.id} title={rec.title} status={rec.status} />
+  }
+]
 
 type Props = {
   loading?: boolean
@@ -14,17 +20,6 @@ type Props = {
 }
 
 export const TodoTable: React.FC<Props> = ({ loading, items }) => {
-  const { onRemoveItem, onUpdateItem } = React.useContext(TodosContext)
-
-  const columns: ColumnsType<TodoItemData> = [
-    {
-      dataIndex: 'item',
-      render: (__, rec) => (
-        <Todo id={rec.id} title={rec.title} status={rec.status} onDelete={onRemoveItem} onStatusUpdate={onUpdateItem} />
-      )
-    }
-  ]
-
   if (!loading && (items === undefined || items.length === 0)) {
     return (
       <EmptyTableBanner>

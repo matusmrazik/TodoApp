@@ -4,24 +4,24 @@ import React from 'react'
 import { DeleteTodoItemResponse } from '../../../api/types'
 import { Text } from '../../../components/Text'
 import { useRemoveTask } from '../../../hooks/useRemoveTask'
+import { useTodosContext } from '../../../hooks/useTodosContext'
 import { TodoItemStatus } from '../../../types'
 import { DeleteButton } from './styled'
 
 type Props = {
   taskId: string
   taskStatus: TodoItemStatus
-  onDelete?: (response: DeleteTodoItemResponse) => void
 }
 
-export const DeleteControls: React.FC<Props> = ({ taskId, taskStatus, onDelete }) => {
+export const DeleteControls: React.FC<Props> = ({ taskId, taskStatus }) => {
+  const { onRemoveItem } = useTodosContext()
+
   const onSuccess = React.useCallback(
     (response: DeleteTodoItemResponse) => {
       message.info('Task removed')
-      if (onDelete) {
-        onDelete(response)
-      }
+      onRemoveItem(response)
     },
-    [onDelete]
+    [onRemoveItem]
   )
 
   const onFailure = React.useCallback(() => {

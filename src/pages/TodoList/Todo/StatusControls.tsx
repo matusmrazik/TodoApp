@@ -4,6 +4,7 @@ import React from 'react'
 import { GetTodoItemResponse } from '../../../api/types'
 import { Text } from '../../../components/Text'
 import { useMarkAsDone } from '../../../hooks/useMarkAsDone'
+import { useTodosContext } from '../../../hooks/useTodosContext'
 import { TodoItemStatus } from '../../../types'
 import { StatusButton } from './styled'
 
@@ -11,18 +12,17 @@ type Props = {
   taskId: string
   taskStatus: TodoItemStatus
   disabled?: boolean
-  onStatusUpdate?: (response: GetTodoItemResponse) => void
 }
 
-export const StatusControls: React.FC<Props> = ({ taskId, taskStatus, disabled, onStatusUpdate }) => {
+export const StatusControls: React.FC<Props> = ({ taskId, taskStatus, disabled }) => {
+  const { onUpdateItem } = useTodosContext()
+
   const onSuccess = React.useCallback(
     (response: GetTodoItemResponse) => {
       message.info('Task marked as done')
-      if (onStatusUpdate) {
-        onStatusUpdate(response)
-      }
+      onUpdateItem(response)
     },
-    [onStatusUpdate]
+    [onUpdateItem]
   )
 
   const onFailure = React.useCallback(() => {

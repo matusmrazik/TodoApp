@@ -6,13 +6,13 @@ import { Text } from '../../components/Text'
 import { Page, PageHeader } from '../../containers/Page'
 import { HOME_PAGE } from '../../features/routing/constants'
 import { DetailPageParams } from '../../features/routing/types'
-import { TodosContext } from '../../TodosContext'
+import { useTodosContext } from '../../hooks/useTodosContext'
 import { DetailTable } from './DetailTable'
 
 const TodoItem: React.FC = () => {
   const { id: itemId } = useParams<DetailPageParams>()
 
-  const { status, getItem } = React.useContext(TodosContext)
+  const { status, getItem } = useTodosContext()
 
   const data = React.useMemo(() => getItem(itemId ?? ''), [getItem, itemId])
 
