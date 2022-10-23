@@ -1,7 +1,8 @@
+import _ from 'lodash'
 import { useCallback, useEffect, useState } from 'react'
 import { mapTodoItem, mapTodosResponse } from '../api/mappers'
 import { getTodos } from '../api/todos'
-import { GetTodoItemResponse } from '../api/types'
+import { DeleteTodoItemResponse, GetTodoItemResponse } from '../api/types'
 import { LoadingStatus, TodoItemData } from '../types'
 
 export const useTodoList = () => {
@@ -32,5 +33,9 @@ export const useTodoList = () => {
     setItems(prev => (prev === undefined ? [mapTodoItem(response)] : [mapTodoItem(response), ...prev]))
   }, [])
 
-  return { status, items, requestReload, onAddItem }
+  const onRemoveItem = useCallback((response: DeleteTodoItemResponse) => {
+    setItems(prev => (prev === undefined ? prev : _.reject(prev, ['id', response.id])))
+  }, [])
+
+  return { status, items, requestReload, onAddItem, onRemoveItem }
 }

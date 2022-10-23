@@ -1,5 +1,6 @@
+import _ from 'lodash'
 import React from 'react'
-import { GetTodoItemResponse } from './api/types'
+import { DeleteTodoItemResponse, GetTodoItemResponse } from './api/types'
 import { useTodoList } from './hooks/useTodoList'
 import { LoadingStatus, TodoItemData } from './types'
 
@@ -9,16 +10,16 @@ type TodosContextData = {
   getItem: (id: string) => TodoItemData | undefined
   requestReload: () => void
   onAddItem: (response: GetTodoItemResponse) => void
+  onRemoveItem: (response: DeleteTodoItemResponse) => void
 }
 
 export const TodosContext = React.createContext<TodosContextData>({
   items: [],
   status: 'NotLoaded',
   getItem: () => undefined,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  requestReload: () => {},
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onAddItem: () => {}
+  requestReload: _.noop,
+  onAddItem: _.noop,
+  onRemoveItem: _.noop
 })
 
 type TodosProviderProps = {
@@ -26,12 +27,12 @@ type TodosProviderProps = {
 }
 
 export const TodosProvider: React.FC<TodosProviderProps> = ({ children }) => {
-  const { items, status, requestReload, onAddItem } = useTodoList()
+  const { items, status, requestReload, onAddItem, onRemoveItem } = useTodoList()
 
-  const getItem = React.useCallback((id: string) => items?.find(x => x.id == id), [items])
+  const getItem = React.useCallback((id: string) => _.find(items, x => x.id == id), [items])
 
   return (
-    <TodosContext.Provider value={{ items, status, getItem, requestReload, onAddItem }}>
+    <TodosContext.Provider value={{ items, status, getItem, requestReload, onAddItem, onRemoveItem }}>
       {children}
     </TodosContext.Provider>
   )
