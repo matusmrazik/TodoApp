@@ -2,9 +2,9 @@ import { ExclamationCircleOutlined as EmptyIcon } from '@ant-design/icons'
 import { Table } from 'antd'
 import { ColumnsType } from 'antd/lib/table'
 import { Text } from '../../components/Text'
-import { Todo } from '../../components/Todo'
 import { TodoItemData } from '../../types'
 import { EmptyTableBanner } from './styled'
+import { Todo } from './Todo'
 
 const columns: ColumnsType<TodoItemData> = [
   {
