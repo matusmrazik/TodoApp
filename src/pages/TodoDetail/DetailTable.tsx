@@ -13,6 +13,7 @@ const TableWrapper = styled.div`
 `
 
 type TableDataItem = {
+  id: string
   description: string
   value: React.ReactNode
 }
@@ -26,8 +27,9 @@ type Props = {
 export const DetailTable: React.FC<Props> = ({ data }) => {
   const rows = React.useMemo<TableDataItem[]>(
     () => [
-      { description: 'Task description', value: data.title },
+      { id: 'desc', description: 'Task description', value: data.title },
       {
+        id: 'stat',
         description: 'Status',
         value: (
           <Text weight="bold" color={data.status === 'Done' ? 'green' : 'red'}>
@@ -35,15 +37,15 @@ export const DetailTable: React.FC<Props> = ({ data }) => {
           </Text>
         )
       },
-      { description: 'Created at', value: data.createdAt?.toString() ?? '-' },
-      { description: 'Done at', value: data.doneAt?.toString() ?? '-' }
+      { id: 'crea', description: 'Created at', value: data.createdAt?.toString() ?? '-' },
+      { id: 'done', description: 'Done at', value: data.doneAt?.toString() ?? '-' }
     ],
     [data.createdAt, data.doneAt, data.status, data.title]
   )
 
   return (
     <TableWrapper>
-      <Table dataSource={rows} columns={columns} pagination={false} showHeader={false} />
+      <Table rowKey={elem => elem.id} dataSource={rows} columns={columns} pagination={false} showHeader={false} />
     </TableWrapper>
   )
 }

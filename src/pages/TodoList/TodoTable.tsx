@@ -32,5 +32,14 @@ export const TodoTable: React.FC<Props> = ({ loading, items }) => {
     )
   }
 
-  return <Table loading={loading} columns={columns} dataSource={items} pagination={false} showHeader={false} />
+  return (
+    <Table
+      rowKey={elem => elem.id}
+      loading={loading}
+      columns={columns}
+      dataSource={items}
+      pagination={false}
+      showHeader={false}
+    />
+  )
 }

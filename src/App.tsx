@@ -1,4 +1,4 @@
-import 'antd/dist/antd.css'
+import 'antd/dist/antd.min.css'
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { createGlobalStyle } from 'styled-components/macro'
