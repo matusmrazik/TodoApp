@@ -8,6 +8,7 @@
     "plugin:react/recommended",
     "plugin:import/typescript",
     "plugin:@typescript-eslint/recommended",
+    "plugin:lodash/recommended",
     "plugin:prettier/recommended"
   ],
   "overrides": [],
@@ -20,10 +21,11 @@
       "version": "18.0.0"
     }
   },
-  "plugins": ["prettier", "react", "react-hooks"],
+  "plugins": ["prettier", "lodash", "react", "react-hooks"],
   "rules": {
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "lodash/import-scope": ["error", "full"]
   }
 }

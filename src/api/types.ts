@@ -1,22 +1,17 @@
 import { TodoItemStatus } from '../types'
 
-export type GetTodosRequest = {
-  maxRecords?: number
-  pageSize?: number
-}
-
 export type TodoItemEditableFields = {
   Title: string
   Status: TodoItemStatus
 }
 
 export type TodoItemFields = TodoItemEditableFields & {
+  CreatedAt?: string
   DoneAt?: string
 }
 
 export type GetTodoItemResponse = {
   id: string
-  createdTime?: string
   fields: TodoItemFields
 }
 

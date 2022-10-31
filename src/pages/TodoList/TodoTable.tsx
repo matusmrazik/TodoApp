@@ -1,6 +1,7 @@
 import { ExclamationCircleOutlined as EmptyIcon } from '@ant-design/icons'
 import { Table } from 'antd'
 import { ColumnsType } from 'antd/lib/table'
+import _ from 'lodash'
 import { Text } from '../../components/Text'
 import { TodoItemData } from '../../types'
 import { EmptyTableBanner } from './styled'
@@ -15,11 +16,11 @@ const columns: ColumnsType<TodoItemData> = [
 
 type Props = {
   loading?: boolean
-  items: TodoItemData[]
+  items: TodoItemData[] | undefined
 }
 
 export const TodoTable: React.FC<Props> = ({ loading, items }) => {
-  if (!loading && items.length === 0) {
+  if (!loading && _.isEmpty(items)) {
     return (
       <EmptyTableBanner>
         <EmptyIcon style={{ fontSize: 50, marginBottom: 10 }} />
@@ -31,5 +32,14 @@ export const TodoTable: React.FC<Props> = ({ loading, items }) => {
     )
   }
 
-  return <Table loading={loading} columns={columns} dataSource={items} pagination={false} showHeader={false} />
+  return (
+    <Table
+      rowKey={elem => elem.id}
+      loading={loading}
+      columns={columns}
+      dataSource={items}
+      pagination={false}
+      showHeader={false}
+    />
+  )
 }

@@ -1,19 +1,23 @@
 import { CloseCircleOutlined } from '@ant-design/icons'
 import { Breadcrumb, Spin } from 'antd'
+import _ from 'lodash'
+import React from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Text } from '../../components/Text'
 import { Page, PageHeader } from '../../containers/Page'
 import { HOME_PAGE } from '../../features/routing/constants'
 import { DetailPageParams } from '../../features/routing/types'
-import { useTodoItem } from '../../hooks/useTodoItem'
+import { useTodoListQuery } from '../../queries/todoListQuery'
 import { DetailTable } from './DetailTable'
 
 const TodoItem: React.FC = () => {
   const { id: itemId } = useParams<DetailPageParams>()
 
-  const { data, loading } = useTodoItem(itemId ?? '')
+  const { status, data: items } = useTodoListQuery()
 
-  if (loading) {
+  const data = React.useMemo(() => _.find(items, x => x.id == itemId), [items, itemId])
+
+  if (status === 'idle' || status === 'loading') {
     return (
       <Page horizontalAlignment="center" verticalAlignment="center">
         <Spin size="large" />
